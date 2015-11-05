@@ -5,6 +5,8 @@
     max_clients: 200
   remote_user: root
   tasks:
+  - name: subscribe to rht
+    script: /root/rhsm.sh
   - name: ensure apache is at the latest version
     yum: pkg=httpd state=latest
   - name: write the apache config file
@@ -16,3 +18,10 @@
   handlers:
     - name: restart apache
       service: name=httpd state=restarted
+
+- name: Run powershell script
+  hosts: windows
+  gather_facts: false
+  tasks:
+    - name: Run powershell script 
+      script: files/helloworld.ps1
